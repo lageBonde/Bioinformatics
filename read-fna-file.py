@@ -9,4 +9,7 @@ for line in file.split('>')[int(sys.argv[2])+1].split('\n'):
     if len(line) != 0 and  ',' not in line:
         code += line
 
-print(Seq(code))
+if len(code) % 3 != 0:
+    print(Seq(code)[0:-(len(code) % 3)], end="")
+else:
+    print(Seq(code), end="")
