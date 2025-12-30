@@ -19,6 +19,10 @@ search-for-gene:
 	@python flip-genome.py N_BASE_GENE;
 	@python search-for-gene.py;
 
+test:
+	@N_BASE_CODE=$$(mktemp);
+	@python read-fna-file.py $(filter-out test, $(MAKECMDGOALS)) > N_BASE_CODE;
+	@python test.py;
 	
 %::
 	@true
