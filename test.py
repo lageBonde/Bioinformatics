@@ -26,7 +26,17 @@ def generate_y_2():
 
     try:
         for i in range(len(seq)):
-            ypoints = np.append(ypoints,gc_fraction(seq.seq[i:i+10**4]))
+            ypoints = np.append(ypoints,gc_fraction(seq.seq[i:i+10**5]))
+    except :
+        pass
+    return ypoints
+
+def generate_y_3(chunk_length):
+    ypoints = np.array([])
+
+    try:
+        for i in range(int(len(seq)/chunk_length)):
+            ypoints = np.append(ypoints,gc_fraction(seq.seq[chunk_length*i:chunk_length*i+chunk_length]))
     except :
         pass
     return ypoints
@@ -42,10 +52,12 @@ for i in range(3,-1,-1):
     plt.plot(xpoints, ypoints)
 '''
 
-for i in range(1):
+chunk_lengths = [10000,15000,20000]
+
+for chunk_length in chunk_lengths:
     seq = records[3]
 
-    ypoints = generate_y_2()
+    ypoints = generate_y_3(chunk_length)
     xpoints = np.array(range(
         0,
         int(len(seq)/len(ypoints))*len(ypoints),
