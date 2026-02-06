@@ -24,15 +24,15 @@ def to_nucleotide_seq(seq):
         "a" if i=='0' else "t" if i=='1' else "g" if i=='2' else "c" if i=='3' else "" for i in np.base_repr(seq, base=4) 
     ])
 
-seq = 0
+force_seq = 0
 force_shooting = []
 
 print("Copies\tSequence")
 
 while True:
-    nucleotide_seq = to_nucleotide_seq(seq)
+    nucleotide_seq = to_nucleotide_seq(force_seqseq)
     
-    if len(to_nucleotide_seq(seq)) > 5:
+    if len(nucleotide_seq) > 5:
         break
     
     copies = data.count(nucleotide_seq)
@@ -41,4 +41,3 @@ while True:
         force_shooting.append([nucleotide_seq,copies])
     seq += 1
 
-print(len(force_shooting))
