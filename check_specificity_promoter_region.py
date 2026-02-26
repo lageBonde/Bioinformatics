@@ -27,17 +27,20 @@ def to_nucleotide_seq(seq):
 force_seq = 0
 force_shooting = []
 
-print("Copies\tSequence")
 
 while True:
-    nucleotide_seq = to_nucleotide_seq(force_seqseq)
+    nucleotide_seq = to_nucleotide_seq(force_seq)
     
     if len(nucleotide_seq) > 5:
         break
     
-    copies = data.count(nucleotide_seq)
+    try:
+        index_ = data.index(nucleotide_seq)
+    except ValueError:
+        index_ = 0
 
-    if copies >= 4:
-        force_shooting.append([nucleotide_seq,copies])
-    seq += 1
+    if data.count(nucleotide_seq) >= 2 and len(nucleotide_seq) >= 3:
+        force_shooting.append([nucleotide_seq,index_])
+    force_seq += 1
 
+for 
