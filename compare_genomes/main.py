@@ -1,7 +1,7 @@
 from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio import Align
-import numpy as np
+import numpy as np, math
 import matplotlib.pyplot as plt
 
 aa_seq_16790_recs = [rec.seq.transcribe().translate() for rec in SeqIO.parse("/workspaces/Bioinformatics/compare_genomes/GCA_000009185.1_ASM918v1_genomic.fna", "fasta")]
@@ -19,6 +19,8 @@ matches = np.array([])
 
 aligner = Align.PairwiseAligner()
 
+i = 0
+
 while True:
     # Get gene
     try: 
@@ -32,13 +34,16 @@ while True:
 
     aa_seq_16790 = aa_seq_16790[stop:]
 
-    for aa_seq in aa_seq_D2T01_array:
-        best_match = 0
-        for fragment in aa_seq_D2T01_array:
-            alignment = aligner.score(fragment,aa_seq)
-            if alignment > best_match:
-                best_match = alignment
-        matches = np.append(matches,best_match)
+    best_match = 0
+    for rec in aa_seq_D2T01_recs:
+        try: alignment = aligner.score(rec,gene)
+        except: break
+        if alignment > best_match:
+            best_match = alignment
+    matches = np.append(matches,best_match)
+
+    print(round(i/aa_seq_16790.count("*")*100,4), "\t%",end="\r")
+    i+=1
 
 plt.plot(range(len(matches)),matches)
 plt.savefig("Comparision")
