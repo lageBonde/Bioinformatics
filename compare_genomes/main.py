@@ -1,14 +1,23 @@
 from Bio import SeqIO
 from Bio.Seq import Seq
+from Bio import Align
 import numpy as np
+import matplotlib.pyplot as plt
 
 aa_seq_16790_recs = [rec.seq.transcribe().translate() for rec in SeqIO.parse("/workspaces/Bioinformatics/compare_genomes/GCA_000009185.1_ASM918v1_genomic.fna", "fasta")]
 aa_seq_D2T01_recs = [rec.seq.transcribe().translate() for rec in SeqIO.parse("/workspaces/Bioinformatics/compare_genomes/GCA_903989505.1_D2T2_genomic.fna", "fasta")]
 
 aa_seq_16790 = aa_seq_16790_recs[0]
 
-found = 0
-missing = 0
+aa_seq_D2T01_array = np.concatenate([
+    str(rec).split("*") for rec in aa_seq_D2T01_recs
+])
+
+aa_seq_D2T01_array = [fragment for fragment in aa_seq_D2T01_array if fragment != ""]
+
+matches = np.array([])
+
+aligner = Align.PairwiseAligner()
 
 while True:
     # Get gene
@@ -23,16 +32,13 @@ while True:
 
     aa_seq_16790 = aa_seq_16790[stop:]
 
-    isfound = False
-    for aa_seq in aa_seq_D2T01_recs:
-        if gene in aa_seq:
-            isfound = True
-    
-    if isfound:
-        found += 1
-    else:
-        missing += 1
+    for aa_seq in aa_seq_D2T01_array:
+        best_match = 0
+        for fragment in aa_seq_D2T01_array:
+            alignment = aligner.score(fragment,aa_seq)
+            if alignment > best_match:
+                best_match = alignment
+        matches = np.append(matches,best_match)
 
-    
-print(f"Found {found}")
-print(f"Missing {missing}")
+plt.plot(range(len(matches)),matches)
+plt.savefig("Comparision")
