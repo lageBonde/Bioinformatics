@@ -2,7 +2,7 @@ from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio import Align
 import numpy as np
-import math, re
+import math, re, csv
 import matplotlib.pyplot as plt
 
 seq_16790_recs = [rec.seq for rec in SeqIO.parse("/workspaces/Bioinformatics/compare_genomes/GCA_000009185.1_ASM918v1_genomic.fna", "fasta")]
@@ -28,8 +28,19 @@ def main():
             )
         except ValueError:
             pass
-        print(done/len(genes), "%", end="\r")
-    plt.plot(len(results),results)
+        print(round(done/len(genes)*100,3), "%", end="\r")
+        done += 1
+    plt.plot(range(len(results)),results)
     plt.savefig("bysearch_tata")
+
+    with open('bysearch_tata.csv', 'w', newline='\n') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerows(
+            [
+                [
+                    [i,results[i]] for i in range(len(results))
+                ]
+            ]
+        )
 
 main()
