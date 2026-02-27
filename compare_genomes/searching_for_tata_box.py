@@ -35,12 +35,9 @@ def main():
 
     with open('bysearch_tata.csv', 'w', newline='\n') as csvfile:
         writer = csv.writer(csvfile)
-        writer.writerows(
-            [
-                [
-                    [i,results[i]] for i in range(len(results))
-                ]
-            ]
-        )
+        for i in range(len(results)):
+            writer.writerow(
+                [i,results[i]]
+            )
 
 main()
