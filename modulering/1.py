@@ -22,8 +22,11 @@ def modulation(
     t = 0
     while True:
         try:
-            vx += (-k/m*vx**2)*stepSize
-            vy += (-g+k/m*vy**2)*stepSize
+            vx += (-k/m*vx**3)*stepSize
+            vy += (-g+k/m*vy**3)*stepSize
+            
+            if vx < 0: vx = 0
+            #if vy > 0: vy = 0
         except OverflowError:
             break
 
@@ -86,5 +89,11 @@ def main():
     plt.legend()
 
     plt.savefig("modulering/modulation")
+
+    plt.clf()
+    plt.plot(range(len(results[0])),results[0],label="x")
+    plt.plot(range(len(results[1])),results[1],label="y")
+    plt.legend()
+    plt.savefig("modulering/modulation_xy")
 
 main()
