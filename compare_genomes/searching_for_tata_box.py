@@ -31,7 +31,7 @@ def main():
         print(round(done/len(genes)*100,3), "%", end="\r")
         done += 1
     plt.plot(range(len(results)),results)
-    plt.savefig("bysearch_tata")
+    plt.savefig("compare_genomes/bysearch_tata")
 
     with open('bysearch_tata.csv', 'w', newline='\n') as csvfile:
         writer = csv.writer(csvfile)

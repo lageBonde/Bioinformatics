@@ -15,8 +15,6 @@ def modulation(
     vx = v0x
     vy = v0y
 
-    
-
     stepSize = stepsize
 
     xpoints = []
@@ -26,15 +24,12 @@ def modulation(
     while True:
         angle = math.atan(vy/vx)
         
-        f_no_air = math.sqrt(
-            (-m*g)**2 +
-            ()**2
-        )
-        f_air = -k*(vx**2+vy**2)
-        f = f_no_air + f_air
+        fd = k*(vx**2+vy**2)
+        fx = -fd*math.cos(angle)
+        fy = -m*g + fd*math.sin(angle)
 
-        vx += f/math.cos(angle)/m*stepsize
-        vy += f/math.cos(math.pi-angle)/m*stepSize
+        vx += fx/m*stepSize
+        vy += fy/m*stepSize
 
         x += vx*stepSize
         y += vy*stepSize
@@ -55,7 +50,7 @@ def modulation(
 def main():
     parser = argparse.ArgumentParser()
     
-    parser.add_argument("-k", type=float, default=0.1)
+    parser.add_argument("-k", type=float, default=2.82*math.pi*10**-3)
     parser.add_argument("-m", type=float, default=0.1)
     parser.add_argument("-g", type=float, default=9.82)
     parser.add_argument("-v0x", type=float, default=1)
