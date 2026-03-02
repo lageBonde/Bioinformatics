@@ -1,4 +1,5 @@
 import numpy as np
+import math
 import matplotlib.pyplot as plt
 import argparse
 
@@ -14,6 +15,8 @@ def modulation(
     vx = v0x
     vy = v0y
 
+    
+
     stepSize = stepsize
 
     xpoints = []
@@ -21,14 +24,17 @@ def modulation(
 
     t = 0
     while True:
-        try:
-            vx += (-k/m*vx**3)*stepSize
-            vy += (-g+k/m*vy**3)*stepSize
-            
-            if vx < 0: vx = 0
-            #if vy > 0: vy = 0
-        except OverflowError:
-            break
+        angle = math.atan(vy/vx)
+        
+        f_no_air = math.sqrt(
+            (-m*g)**2 +
+            ()**2
+        )
+        f_air = -k*(vx**2+vy**2)
+        f = f_no_air + f_air
+
+        vx += f/math.cos(angle)/m*stepsize
+        vy += f/math.cos(math.pi-angle)/m*stepSize
 
         x += vx*stepSize
         y += vy*stepSize
