@@ -5,8 +5,8 @@ import numpy as np
 import math, re, csv
 import matplotlib.pyplot as plt
 
-seq_16790_recs = [rec.seq for rec in SeqIO.parse("/workspaces/Bioinformatics/compare_genomes/GCA_000009185.1_ASM918v1_genomic.fna", "fasta")]
-seq_D2T01_recs = [rec.seq for rec in SeqIO.parse("/workspaces/Bioinformatics/compare_genomes/GCA_903989505.1_D2T2_genomic.fna", "fasta")]
+seq_16790_recs = [rec.seq for rec in SeqIO.parse("/workspaces/Bioinformatics/compare_genomes/Haloquadratum_walsbyi_clone_7B05_sequence.fna", "fasta")]
+seq_D2T01_recs = [rec.seq for rec in SeqIO.parse("/workspaces/Bioinformatics/compare_genomes/Haloquadratum_walsbyi_clone_7B05_sequence.fna", "fasta")]
 
 def splitByTATABoxes(seq):
     seq_str = str(seq)

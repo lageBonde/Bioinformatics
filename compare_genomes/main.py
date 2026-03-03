@@ -4,8 +4,8 @@ from Bio import Align
 import numpy as np, math
 import matplotlib.pyplot as plt
 
-aa_seq_16790_recs = [rec.seq.transcribe().translate() for rec in SeqIO.parse("/workspaces/Bioinformatics/compare_genomes/GCA_000009185.1_ASM918v1_genomic.fna", "fasta")]
-aa_seq_D2T01_recs = [rec.seq.transcribe().translate() for rec in SeqIO.parse("/workspaces/Bioinformatics/compare_genomes/GCA_903989505.1_D2T2_genomic.fna", "fasta")]
+aa_seq_16790_recs = [rec.seq.transcribe().translate() for rec in SeqIO.parse("/workspaces/Bioinformatics/compare_genomes/Haloquadratum_walsbyi_clone_2B08_sequence.fna", "fasta")]
+aa_seq_D2T01_recs = [rec.seq.transcribe().translate() for rec in SeqIO.parse("/workspaces/Bioinformatics/Haloquadratum_walsbyi_clone_7B05_sequence.fna", "fasta")]
 
 aa_seq_16790 = aa_seq_16790_recs[0]
 
