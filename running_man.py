@@ -1,8 +1,8 @@
 from math import pi
 
 o1 = 1*pi
-o2 = 2*pi
-o3 = 5*pi
+o2 = 7*pi
+o3 = 10*pi
 
 h = 10**-4
 
